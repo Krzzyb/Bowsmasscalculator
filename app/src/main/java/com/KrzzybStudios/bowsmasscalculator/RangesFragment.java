@@ -4,6 +4,9 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +70,6 @@ public class RangesFragment extends Fragment {
         Button button = (Button) view.findViewById(R.id.button);
         TextView txtCalculated = view.findViewById(R.id.textView);
         TextView txtCalculatedResult = view.findViewById(R.id.textView2);
-        TextView txtKG = view.findViewById(R.id.textView3);
         EditText alphaAngle = view.findViewById(R.id.editAlpha);
         EditText alphaAngle2 = view.findViewById(R.id.editAlpha2);
         EditText betaAngle = view.findViewById(R.id.editBeta);
@@ -89,8 +91,11 @@ public class RangesFragment extends Fragment {
                 Arrays.sort(weights);
                 double max = weights[weights.length-1], min = weights[0];
                 txtCalculated.setText("Calculated weight: ");
-                txtCalculatedResult.setText(String.format("%.2f", min) + " - " + String.format("%.2f", max));
-                txtKG.setText("kg");
+                String weightRangeString = String.format("%.2f", min) + " - " + String.format("%.2f", max) + " kg";
+                SpannableString weightRangeStringSpanned = new SpannableString(weightRangeString);
+                weightRangeStringSpanned.setSpan(new RelativeSizeSpan(0.35f), weightRangeString.length()-2, weightRangeString.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+                txtCalculatedResult.setText(weightRangeStringSpanned);
+
             }
         });
         return view;

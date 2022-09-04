@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
@@ -70,7 +71,6 @@ public class BasicFragment extends Fragment  {
         Button button = (Button) view.findViewById(R.id.button);
         TextView txtCalculated = view.findViewById(R.id.textView);
         TextView txtCalculatedResult = view.findViewById(R.id.textView2);
-        TextView txtKG = view.findViewById(R.id.textView3);
         EditText alphaAngle = view.findViewById(R.id.editAlpha);
         EditText betaAngle = view.findViewById(R.id.editBeta);
         EditText drawWeight = view.findViewById(R.id.editDrawweight);
@@ -81,11 +81,12 @@ public class BasicFragment extends Fragment  {
                 double beta = Double.parseDouble(betaAngle.getText().toString());
                 double draw = Double.parseDouble(drawWeight.getText().toString());
                 String weightString = String.format("%.2f", Bows_weight_formula_1.getWeight(alpha, beta, draw));
-
+                weightString = weightString + " kg";
                 txtCalculated.setText("Calculated weight: ");
+                SpannableString weightStringSpanned = new SpannableString(weightString);
+                weightStringSpanned.setSpan(new RelativeSizeSpan(0.35f),weightString.length()-2, weightString.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+                txtCalculatedResult.setText(weightStringSpanned);
 
-                txtCalculatedResult.setText(weightString);
-                txtKG.setText("kg");
             }
         });
         return view;
