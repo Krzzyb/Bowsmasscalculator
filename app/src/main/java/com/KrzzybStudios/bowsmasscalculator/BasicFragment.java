@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -16,7 +17,7 @@ import android.widget.TextView;
  * Use the {@link BasicFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class BasicFragment extends Fragment {
+public class BasicFragment extends Fragment  {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -63,30 +64,39 @@ public class BasicFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_basic, container, false);
+        View view = inflater.inflate(R.layout.fragment_basic, container, false);
+        Button button = (Button) view.findViewById(R.id.button);
+        TextView txtCalculated = view.findViewById(R.id.textView);
+        TextView txtCalculatedResult = view.findViewById(R.id.textView2);
+        TextView txtKG = view.findViewById(R.id.textView3);
+        EditText alphaAngle = view.findViewById(R.id.editAlpha);
+        EditText betaAngle = view.findViewById(R.id.editBeta);
+        EditText drawWeight = view.findViewById(R.id.editDrawweight);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                double alpha = Double.parseDouble(alphaAngle.getText().toString());
+                double beta = Double.parseDouble(betaAngle.getText().toString());
+                double draw = Double.parseDouble(drawWeight.getText().toString());
+                String weightString = String.format("%.2f", Bows_weight_formula_1.getWeight(alpha, beta, draw));
+                txtCalculated.setText("Calculated weight: ");
+                txtCalculatedResult.setText(weightString);
+                txtKG.setText("kg");
+            }
+        });
+        return view;
     }
 
-    protected boolean isEmpty(EditText editText){
+    /*protected boolean isEmpty(EditText editText){
         return editText.getText().toString().equals("");
     }
 
     public void onBtnClick(View v) {
-        TextView txtCalculated = v.findViewById(R.id.textView);
-        TextView txtCalculatedResult = v.findViewById(R.id.textView2);
-        TextView txtKG = v.findViewById(R.id.textView3);
-        EditText alphaAngle = v.findViewById(R.id.editAlpha);
-        EditText betaAngle = v.findViewById(R.id.editBeta);
-        EditText drawWeight = v.findViewById(R.id.editDrawweight);
+
         if (isEmpty(alphaAngle) || isEmpty(betaAngle) || isEmpty(drawWeight)) {
             txtCalculated.setTextColor(Color.parseColor("FFFF0000"));
         } else {
-            double alpha = Double.parseDouble(alphaAngle.getText().toString());
-            double beta = Double.parseDouble(betaAngle.getText().toString());
-            double draw = Double.parseDouble(drawWeight.getText().toString());
-            String weightString = Bows_weight_formula_1.getWeight(alpha, beta, draw);
-            txtCalculated.setText("Calculated weight: ");
-            txtCalculatedResult.setText(weightString);
-            txtKG.setText("kg");
+
         }
-    }
+    }*/
 }

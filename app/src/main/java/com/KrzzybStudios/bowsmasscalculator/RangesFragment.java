@@ -3,10 +3,14 @@ package com.KrzzybStudios.bowsmasscalculator;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-
+import com.google.common.primitives.Doubles;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import java.util.Arrays;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -59,6 +63,35 @@ public class RangesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ranges, container, false);
+        View view = inflater.inflate(R.layout.fragment_ranges, container, false);
+        Button button = (Button) view.findViewById(R.id.button);
+        TextView txtCalculated = view.findViewById(R.id.textView);
+        TextView txtCalculatedResult = view.findViewById(R.id.textView2);
+        TextView txtKG = view.findViewById(R.id.textView3);
+        EditText alphaAngle = view.findViewById(R.id.editAlpha);
+        EditText alphaAngle2 = view.findViewById(R.id.editAlpha2);
+        EditText betaAngle = view.findViewById(R.id.editBeta);
+        EditText betaAngle2 = view.findViewById(R.id.editBeta2);
+        EditText drawWeight = view.findViewById(R.id.editDrawweight);
+        button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                double alpha = Double.parseDouble(alphaAngle.getText().toString());
+                double alpha2 = Double.parseDouble(alphaAngle2.getText().toString());
+                double beta = Double.parseDouble(betaAngle.getText().toString());
+                double beta2 = Double.parseDouble(betaAngle2.getText().toString());
+                double draw = Double.parseDouble(drawWeight.getText().toString());
+                double[] weights = {Bows_weight_formula_1.getWeight(alpha, beta, draw),
+                                    Bows_weight_formula_1.getWeight(alpha2, beta, draw),
+                                    Bows_weight_formula_1.getWeight(alpha, beta2, draw),
+                                    Bows_weight_formula_1.getWeight(alpha2,beta2,draw)};
+                txtCalculated.setText("Calculated weight: ");
+                txtCalculatedResult.setText(Doubles.max(weights));
+                txtKG.setText("kg");
+            }
+        });
+        return view;
     }
+
+
 }
