@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,7 +81,9 @@ public class BasicFragment extends Fragment  {
                 double beta = Double.parseDouble(betaAngle.getText().toString());
                 double draw = Double.parseDouble(drawWeight.getText().toString());
                 String weightString = String.format("%.2f", Bows_weight_formula_1.getWeight(alpha, beta, draw));
+
                 txtCalculated.setText("Calculated weight: ");
+
                 txtCalculatedResult.setText(weightString);
                 txtKG.setText("kg");
             }
