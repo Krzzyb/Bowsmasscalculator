@@ -3,7 +3,7 @@ package com.KrzzybStudios.bowsmasscalculator;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import com.google.common.primitives.Doubles;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,8 +85,11 @@ public class RangesFragment extends Fragment {
                                     Bows_weight_formula_1.getWeight(alpha2, beta, draw),
                                     Bows_weight_formula_1.getWeight(alpha, beta2, draw),
                                     Bows_weight_formula_1.getWeight(alpha2,beta2,draw)};
+
+                Arrays.sort(weights);
+                double max = weights[weights.length-1], min = weights[0];
                 txtCalculated.setText("Calculated weight: ");
-                txtCalculatedResult.setText(Doubles.max(weights));
+                txtCalculatedResult.setText(String.format("%.2f", min) + " - " + String.format("%.2f", max));
                 txtKG.setText("kg");
             }
         });
